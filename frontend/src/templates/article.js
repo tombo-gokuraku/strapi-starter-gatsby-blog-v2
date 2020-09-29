@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 
@@ -107,6 +108,10 @@ const Article = ({ data }) => {
       </div>
     </Layout>
   )
+}
+
+Article.propTypes = {
+  data: PropTypes.object,
 }
 
 export default Article

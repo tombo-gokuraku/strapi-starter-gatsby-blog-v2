@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 
 import ArticlesComponent from "../components/articles"
@@ -7,7 +8,9 @@ import Seo from "../components/seo"
 
 export const query = graphql`
   query Category($slug: String!) {
-    articles: allStrapiArticle(filter: { status: {eq: "published"}, category: { slug: { eq: $slug } } }) {
+    articles: allStrapiArticle(
+      filter: { status: { eq: "published" }, category: { slug: { eq: $slug } } }
+    ) {
       edges {
         node {
           slug
@@ -17,18 +20,18 @@ export const query = graphql`
           }
           image {
             childImageSharp {
-                fixed(width: 660) {
-                  src
-                }
+              fixed(width: 660) {
+                src
+              }
             }
           }
           user {
             username
             image {
               childImageSharp {
-                  fixed(width: 30, height: 30) {
-                    src
-                  }
+                fixed(width: 30, height: 30) {
+                  src
+                }
               }
             }
           }
@@ -47,10 +50,10 @@ const Category = ({ data }) => {
 
   return (
     <Layout>
-    <Seo
-          title={category + " - Strapi Gatsby Blog Starter"}
-          description={category + " on my blog"}
-        />
+      <Seo
+        title={category + " - Strapi Gatsby Blog Starter"}
+        description={category + " on my blog"}
+      />
       <div className="uk-section">
         <div className="uk-container uk-container-large">
           <h1>{category}</h1>
@@ -59,6 +62,10 @@ const Category = ({ data }) => {
       </div>
     </Layout>
   )
+}
+
+Category.propTypes = {
+  data: PropTypes.object,
 }
 
 export default Category

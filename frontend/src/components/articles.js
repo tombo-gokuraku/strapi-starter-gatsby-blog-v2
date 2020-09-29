@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import Card from "./card"
 
 const Articles = ({ articles }) => {
@@ -12,7 +13,10 @@ const Articles = ({ articles }) => {
         <div>
           {leftArticles.map((article, i) => {
             return (
-              <Card article={article} key={`article__left__${article.node.slug}`} />
+              <Card
+                article={article}
+                key={`article__left__${article.node.slug}`}
+              />
             )
           })}
         </div>
@@ -20,7 +24,10 @@ const Articles = ({ articles }) => {
           <div className="uk-child-width-1-2@m uk-grid-match" data-uk-grid>
             {rightArticles.map((article, i) => {
               return (
-                <Card article={article} key={`article__right__${article.node.slug}`} />
+                <Card
+                  article={article}
+                  key={`article__right__${article.node.slug}`}
+                />
               )
             })}
           </div>
@@ -30,4 +37,7 @@ const Articles = ({ articles }) => {
   )
 }
 
+Articles.propTypes = {
+  articles: PropTypes.array,
+}
 export default Articles
