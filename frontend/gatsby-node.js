@@ -1,9 +1,13 @@
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
+
+  const previewFilter = process.env.IS_PREVIEW
+    ? ""
+    : '(filter: { status: { eq: "published" } })'
   const result = await graphql(
     `
       {
-        articles: allStrapiArticle(filter: { status: { eq: "published" } }) {
+        articles: allStrapiArticle${previewFilter} {
           edges {
             node {
               strapiId
@@ -39,11 +43,14 @@ exports.createPages = async ({ graphql, actions }) => {
       component: ArticleTemplate,
       context: {
         slug: article.node.slug,
+        previewFilter: process.env.IS_PREVIEW ? "" : "draft",
       },
     })
   })
 
   const CategoryTemplate = require.resolve("./src/templates/category.js")
+  console.log("IS_PREVIEW: ")
+  console.log(process.env.IS_PREVIEW ? "" : "draft")
 
   categories.forEach((category, index) => {
     createPage({
@@ -51,6 +58,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: CategoryTemplate,
       context: {
         slug: category.node.slug,
+        previewFilter: process.env.IS_PREVIEW ? "" : "draft",
       },
     })
   })

@@ -7,9 +7,12 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 
 export const query = graphql`
-  query Category($slug: String!) {
+  query Category($slug: String!, $previewFilter: String) {
     articles: allStrapiArticle(
-      filter: { status: { eq: "published" }, category: { slug: { eq: $slug } } }
+      filter: {
+        status: { ne: $previewFilter }
+        category: { slug: { eq: $slug } }
+      }
     ) {
       edges {
         node {

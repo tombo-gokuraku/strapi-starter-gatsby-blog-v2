@@ -13,8 +13,8 @@ import { MDXProvider } from "@mdx-js/react"
 import MDXRenderer from "gatsby-plugin-mdx/mdx-renderer"
 
 export const query = graphql`
-  query ArticleQuery($slug: String!) {
-    strapiArticle(slug: { eq: $slug }, status: { eq: "published" }) {
+  query ArticleQuery($slug: String!, $previewFilter: String) {
+    strapiArticle(slug: { eq: $slug }, status: { ne: $previewFilter }) {
       strapiId
       title
       content
